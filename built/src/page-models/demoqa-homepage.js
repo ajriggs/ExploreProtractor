@@ -10,7 +10,6 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-//import { ElementFinder } from 'protractor/built/element';
 var protractor_1 = require("protractor");
 var page_abstract_1 = require("./page-abstract");
 var HomePage = (function (_super) {
@@ -18,12 +17,18 @@ var HomePage = (function (_super) {
     function HomePage() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.tabs = protractor_1.$$('#tab_ul li');
+        //note: check if it's possible to use TypeScript to destructure these declarations
+        _this.tab1 = _this.tabs.get(0);
+        _this.tab2 = _this.tabs.get(1);
+        _this.tab3 = _this.tabs.get(2);
+        _this.tab4 = _this.tabs.get(3);
+        _this.tab5 = _this.tabs.get(4);
         return _this;
     }
-    HomePage.prototype.clickOnTab = function (index) {
-        var i = index - 1;
-        var tab = this.tabs.get(i);
-        tab.click();
+    HomePage.prototype.isTabSelected = function (tab) {
+        tab.getAttribute('aria-selected').then(function (result) {
+            return result == 'true' ? true : false;
+        });
     };
     return HomePage;
 }(page_abstract_1.default));
